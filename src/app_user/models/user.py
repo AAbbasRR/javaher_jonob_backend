@@ -3,6 +3,10 @@ from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from django.core.management import settings
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from app_store.models import StoreModel
+
 from utils.exceptions.core import InvalidUsernameOrPasswordError
 
 
@@ -41,6 +45,9 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.type = User.UserTypeOptions.Superuser
         user.is_active = True
+        stores = StoreModel.objects.all()
+        for store in stores:
+            user.stores.add(store)
         user.save(using=self._db)
         return user
 
@@ -65,6 +72,13 @@ class User(AbstractUser):
         choices=UserTypeOptions.choices,
         default=UserTypeOptions.Worker,
         verbose_name=_("Type"),
+    )
+    stores = models.ManyToManyField(
+        StoreModel,
+        related_name="store_users",
+        null=True,
+        blank=True,
+        verbose_name=_("Stores"),
     )
 
     objects = UserManager()
