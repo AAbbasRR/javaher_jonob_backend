@@ -25,16 +25,6 @@ class NotFoundObjectException(APIException):
         super().__init__(detail)
 
 
-class OtpCodeExpiredOrNotFoundException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.otp_code_expired
-
-
-class UserOtpCodeVerifyLockedException(APIException):
-    status_code = 423
-    default_detail = BaseErrors.too_much_effort
-
-
 class ParameterRequiredException(APIException):
     status_code = 400
 
@@ -45,11 +35,6 @@ class ParameterRequiredException(APIException):
             "parameter_is_required", param_name=" or ".join(params)
         )
         super().__init__(detail)
-
-
-class CantCreateCommentException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.cant_create_comment
 
 
 class UserAccountIsNotActiveException(APIException):
@@ -73,97 +58,10 @@ class InvalidFieldValueException(ValidationError):
         super().__init__(detail)
 
 
-class UserAccountIsActivateException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.user_account_is_active
-
-
-class MaximumDepthOfParentRelationshipExceededException(APIException):
+class OldPasswordIsIncorrectException(APIException):
     status_code = 400
 
-    def __init__(self, detail=None, max_depth=3):
-        if detail is None:
-            detail = BaseErrors.change_error_variable(
-                "maximum_depth_parent_child_relationship", depth=max_depth
-            )
-        super().__init__(detail)
-
-
-class InvalidMobileOrEmailFormatException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.invalid_mobile_number_or_email_format
-
-
-class DoNotHaveResetPasswordPermissionException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.user_dont_have_forget_password_permission
-
-
-class ProblemOnlinePaymentGatewayException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.error_in_payment_gateway
-
-
-class DepositFailedException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.deposit_failed
-
-
-class DepositInvalidStatusValueException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.invalid_status_value
-
-
-class DepositPaymentTimeExpiredException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.payment_time_expired
-
-
-class BankCardNotConfirmedException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.bank_card_not_confirmed
-
-
-class MinimumWithdrawalAmountException(APIException):
-    status_code = 400
-
-    def __init__(self, amount=0):
-        detail = BaseErrors.change_error_variable(
-            "withdrawal_minimum_amount", amount=amount
-        )
-        super().__init__(detail)
-
-
-class UserWalletBalanceNotEnoughException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.balance_not_enough
-
-
-class ProductInventoryNotEnoughException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.product_inventory_not_enough
-
-
-class UserCartIsEmptyException(APIException):
-    status_code = 400
-    default_detail = BaseErrors.your_cart_has_empty
-
-
-class CartCouponMinimumPurchaseException(APIException):
-    status_code = 400
-
-    def __init__(self, minimum_purchase=0):
-        detail = BaseErrors.change_error_variable(
-            "minimum_order_must_value", value=minimum_purchase
-        )
-        super().__init__(detail)
-
-
-class MaximumMarketProductDiscountException(APIException):
-    status_code = 400
-
-    def __init__(self, maximum_percent):
-        detail = BaseErrors.change_error_variable(
-            "the_product_discount_not_valid", percent=maximum_percent
-        )
-        super().__init__(detail)
+    def __init__(
+        self, detail=BaseErrors.old_password_is_incorrect, field_name="old_password"
+    ):
+        super().__init__(detail={field_name: detail})

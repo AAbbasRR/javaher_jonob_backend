@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _t
 
 from pathlib import Path
 from decouple import config
-
+from datetime import timedelta
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django_filters",
     "modeltranslation",
     # local apps
+    "app_user",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # ___django settings___ #
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTH_USER_MODEL = "app_user.User"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = "static/"
@@ -139,9 +141,9 @@ USE_TZ = True
 
 # ___django rest framework settings___ #
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
@@ -188,7 +190,13 @@ CSRF_TRUSTED_ORIGINS = config(
     default="http://localhost:8000",
 )
 
+# __django rest framework simplejwt setting__ #
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        hours=config("ACCESS_TOKEN_LIFETIME", default=1, cast=int)
+    ),
+}
+
 # __Custom Settings__ #
 DATE_INPUT_FORMATS = "%Y-%m-%d"
 TIME_INPUT_FORMATS = "%H:%M:%S"
-MAXIMUM_COUNT_TRY_WRONG_OTP_CODE = 5

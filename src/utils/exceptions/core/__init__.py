@@ -17,22 +17,6 @@ class ObjectNotFoundError(Exception):
         super().__init__(self.message)
 
 
-class RedisKeyNotExistsError(Exception):
-    def __init__(self):
-        self.message = BaseErrors.change_error_variable(
-            "object_not_found", object="Redis Key"
-        )
-        super().__init__(self.message)
-
-
-class MaximumDepthOfParentRelationshipExceededError(Exception):
-    def __init__(self, max_depth=3):
-        self.message = BaseErrors.change_error_variable(
-            "maximum_depth_parent_child_relationship", depth=max_depth
-        )
-        super().__init__(self.message)
-
-
 class ModelValidationError(Exception):
     def __init__(self, detail):
         super().__init__(detail)

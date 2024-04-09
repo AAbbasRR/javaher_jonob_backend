@@ -4,6 +4,3 @@ from rest_framework.permissions import (
     IsAuthenticated as IsAuthenticatedPermission,
 )
 from rest_framework.permissions import BasePermission
-
-from utils import BaseErrors
-from utils.db.models.verification import AbstractVerificationModel
