@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "modeltranslation",
     # local apps
     "app_user",
+    "app_customer",
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,8 @@
 from django.db import models
 from django.core import validators
 
+from utils.db.validators import PhoneNumberRegexValidator
+
 
 class CustomFileField(models.FileField):
     def pre_save(self, model_instance, add):
@@ -30,4 +32,11 @@ class PercentField(models.PositiveIntegerField):
             validators.MinValueValidator(0),
             validators.MaxValueValidator(100),
         ]
+        super().__init__(*args, **kwargs)
+
+
+class PhoneField(models.CharField):
+    def __init__(self, *args, **kwargs):
+        kwargs["max_length"] = 11
+        kwargs["validators"] = [PhoneNumberRegexValidator]
         super().__init__(*args, **kwargs)

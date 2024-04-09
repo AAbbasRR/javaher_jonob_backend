@@ -23,6 +23,9 @@ class BaseErrors:
     user_account_not_active = _("User Account Not Active.")
     old_password_is_incorrect = _("Old Password Is Incorrect")
 
+    # utils db
+    invalid_mobile_number_format = _("Invalid Mobile Number Format")
+
     # global
     parameter_is_required = _("parameter {param_name} is required")
     object_not_found = _("{object} Not Found")

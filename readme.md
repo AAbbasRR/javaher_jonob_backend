@@ -1,4 +1,4 @@
-## Single level Backend :rocket:
+## Sales and Warehouse Management Backend :rocket:
 
 env variables:
 
@@ -10,6 +10,7 @@ env variables:
     ALLOWED_HOSTS = list of urls(seprator is ,)[default=*]
     CORS_ORIGIN_REGEX_WHITELIST = list of urls(seprator is ,)[default=*]
     CSRF_TRUSTED_ORIGINS = list of urls(seprator is ,)[default=http://localhost:8000]
+    ACCESS_TOKEN_LIFETIME = int[default=1 hour]
 
 
     # ___Database___ #
@@ -30,7 +31,6 @@ env variables:
 
     DEFAULT_DATABASE_NAME = str[set mysql or postgresql]
 
-
 docker env variables:
 
     # db - postgresql #
@@ -43,11 +43,6 @@ docker env variables:
     For install pre-commit configuration on your git:
         pre-commit install
 
-    For install and hosted mail server with docker:
-        visit the below link:
-            https://henrywithu.com/use-docker-mailserver-to-build-self-hosted-mail-server/
-
-
 How To Run Docker :question:
 
     docker-compose up -d
@@ -58,21 +53,6 @@ How To Run Locally :question:
     python manage.py makemigrations
     python manage.py migrate
     python manage.py runserver or gunicorn src.config.wsgi:application --bind 0.0.0.0:8000
-
-    for install redis:
-        linux - ubuntu
-            sudo apt-get install redis-server
-            sudo service redis-server start
-        windows:
-            Step 1: Turn on Windows Subsystem for Linux
-                Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-            Step 2: Launch Microsoft Windows Store
-                start ms-windows-store:
-            Step 3: Install Redis server
-                sudo apt-add-repository ppa:redislabs/redis sudo apt-get update sudo apt-get upgrade sudo apt-get install redis-server
-
-
-
 
 For Run Test Project Service :sparkles:
 
