@@ -1,4 +1,5 @@
 import calendar
+import random
 
 
 def get_client_ip(request):
@@ -14,3 +15,11 @@ def get_client_ip(request):
 def get_days_in_month(year, month):
     _, days_in_month = calendar.monthrange(year, month)
     return days_in_month
+
+
+def generate_random_number():
+    length = random.randint(4, 10)  # Generate a random length between 4 and 10
+    random_number = "".join(
+        [str(random.randint(0, 9)) for _ in range(length)]
+    )  # Generate a random number of that length
+    return random_number

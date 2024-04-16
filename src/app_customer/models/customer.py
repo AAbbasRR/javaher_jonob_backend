@@ -13,7 +13,11 @@ class Customer(AbstractDateModel):
     mobile_number = fields.PhoneField(unique=True, verbose_name=_("Mobile Number"))
     full_name = models.CharField(max_length=124, verbose_name=_("Full Name"))
     customer_code = models.CharField(
-        max_length=10, unique=True, verbose_name=_("Customer Code")
+        max_length=10,
+        unique=True,
+        null=True,
+        blank=True,
+        verbose_name=_("Customer Code"),
     )
     national_code = models.CharField(
         max_length=10, unique=True, verbose_name=_("National Code")

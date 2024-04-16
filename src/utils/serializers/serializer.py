@@ -47,6 +47,7 @@ class CustomModelSerializer(serializers.ModelSerializer):
                 for field_name, field in self.fields.items():
                     if field_name not in exclude_required_fields_for_update:
                         field.required = False
+                        field.allow_blank = True
 
     def serializer_have_request_on_context(self, *args, **kwargs):
         pass

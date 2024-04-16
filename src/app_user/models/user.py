@@ -76,11 +76,10 @@ class User(AbstractUser):
     stores = models.ManyToManyField(
         StoreModel,
         related_name="store_users",
-        null=True,
-        blank=True,
         verbose_name=_("Stores"),
     )
 
+    REQUIRED_FIELDS = []
     objects = UserManager()
 
     def __str__(self):

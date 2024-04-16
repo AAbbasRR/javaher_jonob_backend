@@ -6,15 +6,12 @@ from django.urls import (
 from django.conf import settings
 from django.conf.urls.static import static
 
-v1_user_urlpatterns = [
-    path(
-        "auth/",
-        include("app_user.api.user.urls", namespace="app_user_user"),
-    ),
-]
-
 v1_urlpatterns = [
-    path("user/", include(v1_user_urlpatterns)),
+    path("user/", include("app_user.api.user.urls", namespace="app_user_user")),
+    path(
+        "customer/",
+        include("app_customer.api.user.urls", namespace="app_customer_user"),
+    ),
 ]
 
 urlpatterns = [

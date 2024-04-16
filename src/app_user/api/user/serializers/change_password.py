@@ -7,7 +7,7 @@ from utils.exceptions.rest import OldPasswordIsIncorrectException
 from utils.base_errors import BaseErrors
 
 
-class AdminChangePasswordSerializer(CustomSerializer):
+class ChangePasswordSerializer(CustomSerializer):
     old_password = serializers.CharField(
         required=True,
         write_only=True,
