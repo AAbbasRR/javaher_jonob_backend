@@ -15,4 +15,15 @@ urlpatterns = [
         UpdateDeleteCustomerAPIView.as_view(),
         name="manage_customer_update_delete",
     ),
+    # customer address
+    path(
+        "manage/address/list_create/",
+        ListCreateCustomerAddressAPIView.as_view(),
+        name="manage_customer_address_list_create",
+    ),
+    path(
+        "manage/address/update_delete/",
+        UpdateDeleteCustomerAddressAPIView.as_view(),
+        name="manage_customer_address_update_delete",
+    ),
 ]
