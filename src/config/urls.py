@@ -16,6 +16,10 @@ v1_urlpatterns = [
         "store/",
         include("app_store.api.user.urls", namespace="app_store_user"),
     ),
+    path(
+        "product/",
+        include("app_product.api.user.urls", namespace="app_product_user"),
+    ),
 ]
 
 urlpatterns = [

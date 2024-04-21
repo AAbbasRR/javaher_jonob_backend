@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  back:
+    container_name: back_django
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - .env
+    expose:
+      - "8000"
+    restart: always
+    networks:
+      - back-network
+    volumes:
+      - ./src:/app
+    depends_on:
+      - db
+
+  back_nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+    restart: always
+    networks:
+      - back-network
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/back.conf:ro
+    depends_on:
+      - back
+
+  db:
+    image: postgres:latest
+    container_name: back_postgres
+    env_file: .env.db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - back-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data:
+
+networks:
+  back-network:
+    driver: bridge
