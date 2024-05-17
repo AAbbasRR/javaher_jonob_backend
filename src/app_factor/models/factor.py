@@ -17,6 +17,10 @@ class Factor(AbstractDateModel):
         Cash = "cash", _("Cash")
         Installment = "installment", _("Installment")
 
+    class PermissionForAcceptOptions(models.TextChoices):
+        Superuser = "superuser_staff", _("Superuser Or Staff")
+        Secretary = "secretary_superuser_staff", _("Secretary Or Superuser Or Staff")
+
     tracking_code = models.CharField(
         max_length=15,
         unique=True,
@@ -44,7 +48,7 @@ class Factor(AbstractDateModel):
         on_delete=models.PROTECT,
         verbose_name=_("Address"),
     )
-    is_accepted = models.BooleanField(default=False, verbose_name=_("Is Accepted"))
+    is_accepted = models.BooleanField(default=True, verbose_name=_("Is Accepted"))
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
     payment_type = models.CharField(
         max_length=11,
@@ -59,6 +63,12 @@ class Factor(AbstractDateModel):
         related_name="store_factors",
         on_delete=models.PROTECT,
         verbose_name=_("Store"),
+    )
+    permission_for_accept = models.CharField(
+        max_length=25,
+        choices=PermissionForAcceptOptions.choices,
+        default=PermissionForAcceptOptions.Secretary,
+        verbose_name=_("Permission For Accept"),
     )
 
     objects = FactorManager()

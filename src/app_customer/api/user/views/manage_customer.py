@@ -10,14 +10,11 @@ from utils.views.versioning import BaseVersioning
 from utils.views.permissions import (
     IsAuthenticatedPermission,
     IsSecretaryOrAbovePermission,
+    IsWorkerOrAbovePermission,
 )
 
 
 class ListCreateCustomerAPIView(generics.CustomListCreateAPIView):
-    permission_classes = [
-        IsAuthenticatedPermission,
-        IsSecretaryOrAbovePermission,
-    ]
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListAddUpdateCustomerSerializer
@@ -28,6 +25,11 @@ class ListCreateCustomerAPIView(generics.CustomListCreateAPIView):
         "customer_code",
         "national_code",
     ]
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAuthenticatedPermission(), IsWorkerOrAbovePermission()]
+        return [IsAuthenticatedPermission(), IsSecretaryOrAbovePermission()]
 
 
 class UpdateDeleteCustomerAPIView(generics.CustomUpdateDestroyAPIView):

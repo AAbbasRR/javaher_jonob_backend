@@ -9,6 +9,6 @@ import uuid
 @receiver(post_save, sender=FactorModel)
 def set_factor_tracking_code_handler(sender, instance, **kwargs):
     if kwargs["created"]:
-        if instance.tracking_code is None:
+        if instance.tracking_code is None or instance.tracking_code == "":
             instance.tracking_code = str(uuid.uuid4()).split("-")[-1]
             instance.save()

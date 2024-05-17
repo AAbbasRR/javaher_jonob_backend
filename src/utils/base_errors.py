@@ -30,3 +30,6 @@ class BaseErrors:
     parameter_is_required = _("parameter {param_name} is required")
     object_not_found = _("{object} Not Found")
     invalid_field_value = _("Invalid Value")
+    you_dont_have_permission_for_this_request = _(
+        "You Dont Have Permission For This Request"
+    )

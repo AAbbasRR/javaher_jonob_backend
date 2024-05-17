@@ -20,6 +20,14 @@ v1_urlpatterns = [
         "product/",
         include("app_product.api.user.urls", namespace="app_product_user"),
     ),
+    path(
+        "factor/",
+        include("app_factor.api.user.urls", namespace="app_factor_user"),
+    ),
+    path(
+        "dashboard/",
+        include("app_dashboard.api.user.urls", namespace="app_dashboard_user"),
+    ),
 ]
 
 urlpatterns = [

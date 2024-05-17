@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-18 01:36+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: app_customer/models/address.py:18 app_factor/models/factor.py:35
+msgid "Customer"
+msgstr "مشتری"
+
+#: app_customer/models/address.py:20
+msgid "Country"
+msgstr "کشور"
+
+#: app_customer/models/address.py:21
+msgid "State"
+msgstr "استان"
+
+#: app_customer/models/address.py:22
+msgid "Full Address"
+msgstr "آدرس کامل"
+
+#: app_customer/models/customer.py:13
+msgid "Mobile Number"
+msgstr "شماره موبایل"
+
+#: app_customer/models/customer.py:14
+msgid "Full Name"
+msgstr "نام و نام خانوادگی"
+
+#: app_customer/models/customer.py:20
+msgid "Customer Code"
+msgstr "کد مشتری"
+
+#: app_customer/models/customer.py:23
+msgid "National Code"
+msgstr "کد ملی"
+
+#: app_factor/models/factor.py:16
+msgid "Check"
+msgstr "چک"
+
+#: app_factor/models/factor.py:17
+msgid "Cash"
+msgstr "نقد"
+
+#: app_factor/models/factor.py:18
+msgid "Installment"
+msgstr "قسطی"
+
+#: app_factor/models/factor.py:21
+msgid "Superuser Or Staff"
+msgstr "سوپریوزر یا مدیر"
+
+#: app_factor/models/factor.py:22
+msgid "Secretary Or Superuser Or Staff"
+msgstr "سوپر یوزر یا مدیر یا منشی"
+
+#: app_factor/models/factor.py:29
+msgid "Tracking Code"
+msgstr "کد رهگیری"
+
+#: app_factor/models/factor.py:43
+msgid "Marketer"
+msgstr "بازاریاب"
+
+#: app_factor/models/factor.py:49
+msgid "Address"
+msgstr "آدرس"
+
+#: app_factor/models/factor.py:51
+msgid "Is Accepted"
+msgstr "وضعیت تایید"
+
+#: app_factor/models/factor.py:52
+msgid "Description"
+msgstr "توضیحات"
+
+#: app_factor/models/factor.py:56
+msgid "Payment Type"
+msgstr "نوع پرداخت"
+
+#: app_factor/models/factor.py:59
+msgid "Payment Status"
+msgstr "وضعیت پرداخت"
+
+#: app_factor/models/factor.py:65
+msgid "Store"
+msgstr "انبار"
+
+#: app_factor/models/factor.py:71
+msgid "Permission For Accept"
+msgstr "دسترسی برای تایید"
+
+#: app_factor/models/factor_items.py:21
+msgid "Factor"
+msgstr "فاکتور"
+
+#: app_factor/models/factor_items.py:27
+msgid "Product"
+msgstr "محصول"
+
+#: app_factor/models/factor_items.py:29 app_product/models/product.py:20
+msgid "Price"
+msgstr "قیمت"
+
+#: app_factor/models/factor_items.py:30 app_product/models/product.py:21
+msgid "Tax"
+msgstr "مالیات"
+
+#: app_factor/models/factor_items.py:32
+msgid "Count"
+msgstr "تعداد"
+
+#: app_product/models/product.py:14 app_store/models/store.py:12
+msgid "Name"
+msgstr "عنوان"
+
+#: app_product/models/product.py:18
+msgid "Weight"
+msgstr "وزن"
+
+#: app_user/models/user.py:62
+msgid "Superuser"
+msgstr "سوپریوزر"
+
+#: app_user/models/user.py:63
+msgid "Staff"
+msgstr "مدیر"
+
+#: app_user/models/user.py:64
+msgid "Secretary"
+msgstr "منشی"
+
+#: app_user/models/user.py:65
+msgid "Worker"
+msgstr "کارگر"
+
+#: app_user/models/user.py:74
+msgid "Type"
+msgstr "نوع"
+
+#: app_user/models/user.py:79
+msgid "Stores"
+msgstr "انبار ها"
+
+#: utils/base_errors.py:17
+msgid "URL Not Found."
+msgstr "آدرس پیدا نشد"
+
+#: utils/base_errors.py:18
+msgid "Server Error."
+msgstr "سرور با مشکل روبرو شده است"
+
+#: utils/base_errors.py:21
+msgid "Passwords do not match."
+msgstr "رمز و تکرار رمز یکسان نیستند"
+
+#: utils/base_errors.py:22
+msgid "Invalid Username Or Password."
+msgstr "نام کاربری یا رمزعبور نامعتبر است"
+
+#: utils/base_errors.py:23
+msgid "User Account Not Active."
+msgstr "حساب کاربری فعال نیست"
+
+#: utils/base_errors.py:24
+msgid "Old Password Is Incorrect"
+msgstr "پسورد قبلی اشتباه است"
+
+#: utils/base_errors.py:27
+msgid "Invalid Mobile Number Format"
+msgstr "فرمت شماره موبایل اشتباه است"
+
+#: utils/base_errors.py:30
+#, python-brace-format
+msgid "parameter {param_name} is required"
+msgstr "پارامتر  {param_name}  اجباری است"
+
+#: utils/base_errors.py:31
+#, python-brace-format
+msgid "{object} Not Found"
+msgstr "{object} پیدا نشد"
+
+#: utils/base_errors.py:32
+msgid "Invalid Value"
+msgstr "مقدار نامتعبر"
+
+#: utils/base_errors.py:33
+msgid "You Dont Have Permission For This Request"
+msgstr "شما دسترسی به انجام این درخواست ندارید"
+
+#: utils/db/models/date.py:11
+msgid "Created Time"
+msgstr "تاریخ ایجاد"
+
+#: utils/db/models/date.py:12
+msgid "Updated Time"
+msgstr "تاریخ بروزرسانی"

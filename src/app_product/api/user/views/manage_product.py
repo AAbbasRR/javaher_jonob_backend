@@ -9,26 +9,28 @@ from utils.views.paginations import BasePagination
 from utils.views.versioning import BaseVersioning
 from utils.views.permissions import (
     IsAuthenticatedPermission,
-    IsSuperUserPermission,
+    IsStaffOrAbovePermission,
+    IsWorkerOrAbovePermission,
 )
 
 
 class ListCreateProductAPIView(generics.CustomListCreateAPIView):
-    permission_classes = [
-        IsAuthenticatedPermission,
-        IsSuperUserPermission,
-    ]
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListAddUpdateProductSerializer
     queryset = ProductModel.objects.all()
     search_fields = ["name", "weight", "price"]
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAuthenticatedPermission(), IsWorkerOrAbovePermission()]
+        return [IsAuthenticatedPermission(), IsStaffOrAbovePermission()]
+
 
 class UpdateDeleteProductAPIView(generics.CustomUpdateDestroyAPIView):
     permission_classes = [
         IsAuthenticatedPermission,
-        IsSuperUserPermission,
+        IsStaffOrAbovePermission,
     ]
     versioning_class = BaseVersioning
     serializer_class = ListAddUpdateProductSerializer

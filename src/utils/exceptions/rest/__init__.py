@@ -65,3 +65,10 @@ class OldPasswordIsIncorrectException(APIException):
         self, detail=BaseErrors.old_password_is_incorrect, field_name="old_password"
     ):
         super().__init__(detail={field_name: detail})
+
+
+class UserDontHavePermissionException(APIException):
+    status_code = 406
+
+    def __init__(self, detail=BaseErrors.you_dont_have_permission_for_this_request):
+        super().__init__(detail=detail)

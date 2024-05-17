@@ -1,3 +1,5 @@
+import sys
+
 from django.utils.translation import gettext_lazy as _t
 
 from pathlib import Path
@@ -32,6 +34,7 @@ INSTALLED_APPS = [
     "app_store",
     "app_product",
     "app_factor",
+    "app_dashboard",
 ]
 
 MIDDLEWARE = [
@@ -96,13 +99,27 @@ if config("USE_POSTGRES", default=False, cast=bool):
 
 
 def get_default_detabase(default_database=config("DEFAULT_DATABASE_NAME", default="")):
-    match default_database.upper():
-        case "MYSQL":
-            return MYSQL_DATABASE
-        case "POSTGRESQL":
-            return POSTGRES_SQL_DATABASE
-        case _:
-            return SQL_LITE_DATABASE
+    python_version = sys.version.split(" ")[0]
+    version_parts = python_version.split(".")
+    major = version_parts[0]
+    minor = version_parts[1]
+    version_float = float(f"{major}.{minor}")
+    if version_float >= 3.10:
+        match default_database.upper():
+            case "MYSQL":
+                return MYSQL_DATABASE
+            case "POSTGRESQL":
+                return POSTGRES_SQL_DATABASE
+            case _:
+                return SQL_LITE_DATABASE
+    else:
+        return (
+            MYSQL_DATABASE
+            if default_database.upper() == "MYSQL"
+            else POSTGRES_SQL_DATABASE
+            if default_database.upper() == "MYSQL"
+            else SQL_LITE_DATABASE
+        )
 
 
 DATABASES = {"default": get_default_detabase()}
