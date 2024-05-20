@@ -75,6 +75,7 @@ class User(AbstractUser):
     )
     stores = models.ManyToManyField(
         StoreModel,
+        blank=True,
         related_name="store_users",
         verbose_name=_("Stores"),
     )
