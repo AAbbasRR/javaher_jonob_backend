@@ -45,10 +45,10 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.type = User.UserTypeOptions.Superuser
         user.is_active = True
+        user.save(using=self._db)
         stores = StoreModel.objects.all()
         for store in stores:
             user.stores.add(store)
-        user.save(using=self._db)
         return user
 
     def register_user(self, username, password=None, **kwargs):

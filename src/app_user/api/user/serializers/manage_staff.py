@@ -26,7 +26,7 @@ class ListAddUpdateStaffSerializer(CustomModelSerializer):
             "formatted_last_login",
             "formatted_date_joined",
         )
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {"password": {"write_only": True}, "stores": {"default": []}}
 
     def create(self, validated_data):
         stores_data = validated_data.pop("stores", None)
