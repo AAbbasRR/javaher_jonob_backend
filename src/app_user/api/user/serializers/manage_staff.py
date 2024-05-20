@@ -39,10 +39,15 @@ class ListAddUpdateStaffSerializer(CustomModelSerializer):
 
     def update(self, instance, validated_data):
         password = validated_data.pop("password", None)
+        stores_data = validated_data.pop("stores", None)
         with transaction.atomic():
             for field_name in validated_data:
                 setattr(instance, field_name, validated_data[field_name])
             if password is not None:
                 instance.set_password(password)
+            if instance.type in ["superuser", "staff"]:
+                stores_data = StoreModel.objects.all()
+            if stores_data:
+                instance.stores.set(stores_data)
             instance.save()
         return instance
