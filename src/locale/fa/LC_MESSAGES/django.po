@@ -135,7 +135,7 @@ msgstr "وزن"
 
 #: app_user/models/user.py:62
 msgid "Superuser"
-msgstr "سوپریوزر"
+msgstr "مدیر اصلی"
 
 #: app_user/models/user.py:63
 msgid "Staff"
