@@ -24,7 +24,20 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListAddUpdateFactorSerializer
-    search_fields = ["tracking_code", "description"]
+    search_fields = [
+        "tracking_code",
+        "description",
+        "customer__mobile_number",
+        "customer__full_name",
+        "customer__customer_code",
+        "customer__national_code",
+        "address__country",
+        "address__state",
+        "address__city",
+        "address__street",
+        "address__full_address",
+        "store__name",
+    ]
 
     def get_queryset(self):
         return FactorModel.objects.filter(store__in=self.request.user.stores.all())

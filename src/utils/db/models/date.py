@@ -6,7 +6,7 @@ from django.core.management import settings
 class AbstractDateModel(models.Model):
     class Meta:
         abstract = True
-        ordering = ["create_at"]
+        ordering = ["-create_at"]
 
     create_at = models.DateTimeField(verbose_name=_("Created Time"), auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name=_("Updated Time"), auto_now=True)

@@ -24,6 +24,11 @@ class ListCreateCustomerAPIView(generics.CustomListCreateAPIView):
         "full_name",
         "customer_code",
         "national_code",
+        "customer_addresses__country",
+        "customer_addresses__state",
+        "customer_addresses__city",
+        "customer_addresses__street",
+        "customer_addresses__full_address",
     ]
 
     def get_permissions(self):

@@ -1,4 +1,4 @@
-from .manage_product import (
+from .manage_factor import (
     ListCreateFactorAPIView,
     UpdateDeleteFactorAPIView,
     AcceptFactorAPIView,

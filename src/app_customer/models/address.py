@@ -14,11 +14,15 @@ class CustomerAddress(AbstractDateModel):
     customer = models.ForeignKey(
         CustomerModel,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name="customer_addresses",
         verbose_name=_("Customer"),
     )
     country = models.CharField(max_length=32, verbose_name=_("Country"))
     state = models.CharField(max_length=32, verbose_name=_("State"))
+    city = models.CharField(max_length=32, verbose_name=_("City"))
+    street = models.CharField(max_length=32, verbose_name=_("Street"))
     full_address = models.TextField(verbose_name=_("Full Address"))
 
     objects = CustomerAddressManager()

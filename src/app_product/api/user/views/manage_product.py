@@ -19,7 +19,7 @@ class ListCreateProductAPIView(generics.CustomListCreateAPIView):
     pagination_class = BasePagination
     serializer_class = ListAddUpdateProductSerializer
     queryset = ProductModel.objects.all()
-    search_fields = ["name", "weight", "price"]
+    search_fields = ["name", "weight", "price", "tax"]
 
     def get_permissions(self):
         if self.request.method == "GET":

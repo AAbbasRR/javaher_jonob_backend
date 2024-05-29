@@ -13,6 +13,8 @@ class ListAddUpdateCustomerAddressSerializer(CustomModelSerializer):
             "customer",
             "country",
             "state",
+            "city",
+            "street",
             "full_address",
             "formatted_create_at",
             "formatted_updated_at",

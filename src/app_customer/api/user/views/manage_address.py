@@ -23,6 +23,8 @@ class ListCreateCustomerAddressAPIView(generics.CustomListCreateAPIView):
     search_fields = [
         "country",
         "state",
+        "city",
+        "street",
         "full_address",
     ]
 
