@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
+from config import settings
 from app_customer.models import CustomerModel, CustomerAddressModel
 from app_store.models import StoreModel
 
 from utils.db.models import AbstractDateModel
+from utils.db import fields
 
 
 class FactorManager(models.Manager):
@@ -34,20 +37,15 @@ class Factor(AbstractDateModel):
         on_delete=models.PROTECT,
         verbose_name=_("Customer"),
     )
-    marketer = models.ForeignKey(
-        CustomerModel,
-        related_name="marketer_factors",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        verbose_name=_("Marketer"),
-    )
     address = models.ForeignKey(
         CustomerAddressModel,
         related_name="customer_address_factors",
         on_delete=models.PROTECT,
         verbose_name=_("Address"),
     )
+    factor_date = models.DateField(default=timezone.now().date(), verbose_name=_("Factor Date"))
+    discount_is_percent = models.BooleanField(default=False, verbose_name=_("Discount Is Percent"))
+    discount_value = fields.PriceField(verbose_name=_("Discount Value"))
     is_accepted = models.BooleanField(default=True, verbose_name=_("Is Accepted"))
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
     payment_type = models.CharField(
@@ -75,3 +73,27 @@ class Factor(AbstractDateModel):
 
     def __str__(self):
         return f"{self.pk} {self.tracking_code}"
+
+    def formatted_factor_date(self):
+        return self.factor_date.strftime(settings.DATE_INPUT_FORMATS)
+
+
+class FactorPaymentsManager(models.Manager):
+    pass
+
+
+class FactorPayments(AbstractDateModel):
+    factor = models.ForeignKey(
+        Factor,
+        on_delete=models.CASCADE,
+        related_name="factor_payments",
+        verbose_name=_("Factor")
+    )
+    amount = fields.PriceField(
+        verbose_name=_("Amount")
+    )
+
+    objects = FactorPaymentsManager()
+
+    def __str__(self):
+        return f"{self.factor} {self.amount}"

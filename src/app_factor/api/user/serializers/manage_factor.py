@@ -48,7 +48,6 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
     factor_items = FactorItemsSerializer(required=True, many=True)
     store_data = serializers.SerializerMethodField()
     customer_data = serializers.SerializerMethodField()
-    marketer_data = serializers.SerializerMethodField()
     address_data = serializers.SerializerMethodField()
     can_accept = serializers.SerializerMethodField()
 
@@ -58,11 +57,13 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             "id",
             "tracking_code",
             "customer",
-            "marketer",
             "address",
             "customer_data",
             "marketer_data",
             "address_data",
+            "formatted_factor_date",
+            "discount_is_percent",
+            "discount_value",
             "is_accepted",
             "description",
             "payment_type",
@@ -81,9 +82,6 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
 
     def get_customer_data(self, obj):
         return CustomerSerializer(obj.customer, many=False).data
-
-    def get_marketer_data(self, obj):
-        return CustomerSerializer(obj.marketer, many=False).data
 
     def get_address_data(self, obj):
         return CustomerAddressSerializer(obj.address, many=False).data
