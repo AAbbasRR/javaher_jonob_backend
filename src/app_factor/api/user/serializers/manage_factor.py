@@ -2,7 +2,7 @@ from django.db import transaction
 
 from rest_framework import serializers
 
-from app_factor.models import FactorModel, FactorItemsModel
+from app_factor.models import FactorModel, FactorItemsModel, FactorPaymentsModel
 from app_customer.models import CustomerModel, CustomerAddressModel
 
 from utils.serializers.serializer import CustomModelSerializer
@@ -30,22 +30,41 @@ class CustomerAddressSerializer(CustomModelSerializer):
 
 
 class FactorItemsSerializer(CustomModelSerializer):
+    name = serializers.SerializerMethodField()
+    weight = serializers.SerializerMethodField()
+
     class Meta:
         model = FactorItemsModel
         fields = (
             "id",
             "product",
+            "name",
+            "weight",
             "price",
             "tax",
             "count",
         )
 
+    def get_name(self, obj):
+        return obj.product.name
+
+    def get_weight(self, obj):
+        return obj.product.weight
+
+
+class FactorPaymentsSerializer(CustomModelSerializer):
+    class Meta:
+        model = FactorPaymentsModel
+        fields = (
+            "id",
+            "factor",
+            "amount",
+        )
+
 
 class ListAddUpdateFactorSerializer(CustomModelSerializer):
-    payment_type_display = serializers.CharField(
-        source="get_payment_type_display", read_only=True
-    )
     factor_items = FactorItemsSerializer(required=True, many=True)
+    factor_payments = FactorPaymentsSerializer(many=True, read_only=True)
     store_data = serializers.SerializerMethodField()
     customer_data = serializers.SerializerMethodField()
     address_data = serializers.SerializerMethodField()
@@ -59,18 +78,16 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             "customer",
             "address",
             "customer_data",
-            "marketer_data",
             "address_data",
-            "formatted_factor_date",
+            "factor_date",
             "discount_is_percent",
             "discount_value",
             "is_accepted",
             "description",
-            "payment_type",
-            "payment_type_display",
             "payment_status",
             "store",
             "factor_items",
+            "factor_payments",
             "can_accept",
             "store_data",
             "formatted_create_at",
@@ -78,6 +95,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
         )
         extra_kwargs = {
             "is_accepted": {"read_only": True},
+            "payment_status": {"read_only": True},
         }
 
     def get_customer_data(self, obj):

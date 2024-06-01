@@ -1,9 +1,10 @@
 from app_factor.api.user.serializers.manage_factor import (
     ListAddUpdateFactorSerializer,
+    FactorPaymentsSerializer,
     AcceptFactorSerializer,
 )
 
-from app_factor.models import FactorModel
+from app_factor.models import FactorModel, FactorPaymentsModel
 
 from utils.views import generics
 from utils.views.paginations import BasePagination
@@ -41,6 +42,16 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
 
     def get_queryset(self):
         return FactorModel.objects.filter(store__in=self.request.user.stores.all())
+
+
+class CreateFactorPaymentsAPIView(generics.CustomCreateAPIView):
+    permission_classes = [
+        IsAuthenticatedPermission,
+        IsWorkerOrAbovePermission,
+    ]
+    versioning_class = BaseVersioning
+    pagination_class = BasePagination
+    serializer_class = FactorPaymentsSerializer
 
 
 class UpdateDeleteFactorAPIView(generics.CustomUpdateDestroyAPIView):

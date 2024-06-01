@@ -28,4 +28,4 @@ class CustomerAddress(AbstractDateModel):
     objects = CustomerAddressManager()
 
     def __str__(self):
-        return f"{self.pk} {self.customer.pk}"
+        return f"{self.pk}"

@@ -15,11 +15,6 @@ class FactorManager(models.Manager):
 
 
 class Factor(AbstractDateModel):
-    class PaymentTypeOptions(models.TextChoices):
-        Check = "check", _("Check")
-        Cash = "cash", _("Cash")
-        Installment = "installment", _("Installment")
-
     class PermissionForAcceptOptions(models.TextChoices):
         Superuser = "superuser_staff", _("Superuser Or Staff")
         Secretary = "secretary_superuser_staff", _("Secretary Or Superuser Or Staff")
@@ -43,16 +38,15 @@ class Factor(AbstractDateModel):
         on_delete=models.PROTECT,
         verbose_name=_("Address"),
     )
-    factor_date = models.DateField(default=timezone.now().date(), verbose_name=_("Factor Date"))
-    discount_is_percent = models.BooleanField(default=False, verbose_name=_("Discount Is Percent"))
+    factor_date = models.DateField(
+        default=timezone.now().date, verbose_name=_("Factor Date")
+    )
+    discount_is_percent = models.BooleanField(
+        default=False, verbose_name=_("Discount Is Percent")
+    )
     discount_value = fields.PriceField(verbose_name=_("Discount Value"))
     is_accepted = models.BooleanField(default=True, verbose_name=_("Is Accepted"))
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
-    payment_type = models.CharField(
-        max_length=11,
-        choices=PaymentTypeOptions.choices,
-        verbose_name=_("Payment Type"),
-    )
     payment_status = models.BooleanField(
         default=False, verbose_name=_("Payment Status")
     )
@@ -87,11 +81,9 @@ class FactorPayments(AbstractDateModel):
         Factor,
         on_delete=models.CASCADE,
         related_name="factor_payments",
-        verbose_name=_("Factor")
+        verbose_name=_("Factor"),
     )
-    amount = fields.PriceField(
-        verbose_name=_("Amount")
-    )
+    amount = fields.PriceField(verbose_name=_("Amount"))
 
     objects = FactorPaymentsManager()
 
