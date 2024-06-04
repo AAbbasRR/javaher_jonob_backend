@@ -38,9 +38,7 @@ class Factor(AbstractDateModel):
         on_delete=models.PROTECT,
         verbose_name=_("Address"),
     )
-    factor_date = models.DateField(
-        default=timezone.now().date, verbose_name=_("Factor Date")
-    )
+    factor_date = models.DateField(verbose_name=_("Factor Date"))
     discount_is_percent = models.BooleanField(
         default=False, verbose_name=_("Discount Is Percent")
     )
@@ -62,6 +60,7 @@ class Factor(AbstractDateModel):
         default=PermissionForAcceptOptions.Secretary,
         verbose_name=_("Permission For Accept"),
     )
+    payment_amount = fields.PriceField(verbose_name=_("Payment Amount"))
 
     objects = FactorManager()
 
@@ -70,6 +69,17 @@ class Factor(AbstractDateModel):
 
     def formatted_factor_date(self):
         return self.factor_date.strftime(settings.DATE_INPUT_FORMATS)
+
+    def calculate_payment_amount(self):
+        factor_items = self.factor_items.all()
+        total = 0
+        discount = self.discount_value
+        for item in factor_items:
+            total += (item.price + item.price * (item.tax / 100)) * item.count
+        if self.discount_is_percent:
+            discount = total * (self.discount_value / 100)
+        self.payment_amount = total - discount
+        self.save()
 
 
 class FactorPaymentsManager(models.Manager):

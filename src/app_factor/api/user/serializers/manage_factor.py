@@ -6,7 +6,10 @@ from app_factor.models import FactorModel, FactorItemsModel, FactorPaymentsModel
 from app_customer.models import CustomerModel, CustomerAddressModel
 
 from utils.serializers.serializer import CustomModelSerializer
-from utils.exceptions.rest import UserDontHavePermissionException
+from utils.exceptions.rest import (
+    UserDontHavePermissionException,
+    InvalidAmountException,
+)
 
 
 class CustomerSerializer(CustomModelSerializer):
@@ -55,11 +58,27 @@ class FactorItemsSerializer(CustomModelSerializer):
 class FactorPaymentsSerializer(CustomModelSerializer):
     class Meta:
         model = FactorPaymentsModel
-        fields = (
-            "id",
-            "factor",
-            "amount",
-        )
+        fields = ("id", "factor", "amount", "formatted_create_at")
+
+    def validate(self, attrs):
+        payments_history = attrs["factor"].factor_payments.all()
+        total = 0
+        for item in payments_history:
+            total += item.amount
+        if (attrs["factor"].payment_amount - total) < attrs["amount"]:
+            raise InvalidAmountException(attrs["factor"].payment_amount - total)
+        return attrs
+
+    def create(self, validated_data):
+        factor_payment = FactorPaymentsModel.objects.create(**validated_data)
+        payments_history = factor_payment.factor.factor_payments.all()
+        total = 0
+        for item in payments_history:
+            total += item.amount
+        if (factor_payment.factor.payment_amount - total) == 0:
+            factor_payment.factor.payment_status = True
+            factor_payment.save()
+        return factor_payment
 
 
 class ListAddUpdateFactorSerializer(CustomModelSerializer):
@@ -85,6 +104,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             "is_accepted",
             "description",
             "payment_status",
+            "payment_amount",
             "store",
             "factor_items",
             "factor_payments",
@@ -130,6 +150,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
                     FactorModel.PermissionForAcceptOptions.Superuser
                 )
         factor.save()
+        factor.calculate_payment_amount()
         return factor
 
     def update(self, instance, validated_data):
@@ -156,6 +177,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
                     FactorModel.PermissionForAcceptOptions.Superuser
                 )
         instance.save()
+        instance.calculate_payment_amount()
         return instance
 
 

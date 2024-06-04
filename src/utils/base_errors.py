@@ -33,3 +33,4 @@ class BaseErrors:
     you_dont_have_permission_for_this_request = _(
         "You Dont Have Permission For This Request"
     )
+    the_maximum_value_should_be_amount = _("The Maximum Value Should be {amount}")

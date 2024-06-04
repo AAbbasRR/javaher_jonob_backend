@@ -67,6 +67,16 @@ class OldPasswordIsIncorrectException(APIException):
         super().__init__(detail={field_name: detail})
 
 
+class InvalidAmountException(APIException):
+    status_code = 400
+
+    def __init__(self, amount):
+        detail = BaseErrors.change_error_variable(
+            "the_maximum_value_should_be_amount", amount=amount
+        )
+        super().__init__(detail)
+
+
 class UserDontHavePermissionException(APIException):
     status_code = 406
 
