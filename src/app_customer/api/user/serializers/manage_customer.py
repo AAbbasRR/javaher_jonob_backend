@@ -14,6 +14,7 @@ class ListAddUpdateCustomerSerializer(CustomModelSerializer):
             "full_name",
             "customer_code",
             "national_code",
+            "marketer",
             "formatted_create_at",
             "formatted_updated_at",
         )

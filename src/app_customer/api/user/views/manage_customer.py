@@ -24,6 +24,7 @@ class ListCreateCustomerAPIView(generics.CustomListCreateAPIView):
         "full_name",
         "customer_code",
         "national_code",
+        "marketer",
         "customer_addresses__country",
         "customer_addresses__state",
         "customer_addresses__city",

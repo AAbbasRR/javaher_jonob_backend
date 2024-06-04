@@ -10,7 +10,9 @@ class CustomerManager(models.Manager):
 
 
 class Customer(AbstractDateModel):
-    mobile_number = fields.PhoneField(unique=True, verbose_name=_("Mobile Number"))
+    mobile_number = fields.PhoneField(
+        null=True, blank=True, verbose_name=_("Mobile Number")
+    )
     full_name = models.CharField(max_length=124, verbose_name=_("Full Name"))
     customer_code = models.CharField(
         max_length=10,
@@ -20,7 +22,10 @@ class Customer(AbstractDateModel):
         verbose_name=_("Customer Code"),
     )
     national_code = models.CharField(
-        max_length=10, unique=True, verbose_name=_("National Code")
+        max_length=10, null=True, blank=True, verbose_name=_("National Code")
+    )
+    marketer = models.CharField(
+        max_length=124, null=True, blank=True, verbose_name=_("Marketer")
     )
 
     objects = CustomerManager()
