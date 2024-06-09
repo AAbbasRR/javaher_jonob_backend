@@ -9,10 +9,6 @@ from utils.db.models import AbstractDateModel
 from utils.db import fields
 
 
-class FactorItemsManager(models.Manager):
-    pass
-
-
 class FactorItems(AbstractDateModel):
     factor = models.ForeignKey(
         FactorModel,
@@ -31,8 +27,6 @@ class FactorItems(AbstractDateModel):
     count = models.PositiveIntegerField(
         validators=[MinValueValidator(1)], verbose_name=_("Count")
     )
-
-    objects = FactorItemsManager()
 
     def __str__(self):
         return f"{self.pk} {self.factor} {self.product}"

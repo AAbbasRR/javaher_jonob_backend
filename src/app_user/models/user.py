@@ -8,9 +8,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from app_store.models import StoreModel
 
 from utils.exceptions.core import InvalidUsernameOrPasswordError
+from utils.db.models import AbstractDateModel, AbstractDateManager
 
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager, AbstractDateManager):
     def authenticate_user(self, username, password, **kwargs):
         try:
             user_obj = self.get(username=username, **kwargs)
@@ -57,7 +58,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractUser):
+class User(AbstractUser, AbstractDateModel):
     class UserTypeOptions(models.TextChoices):
         Superuser = "superuser", _("Superuser")
         Staff = "staff", _("Staff")

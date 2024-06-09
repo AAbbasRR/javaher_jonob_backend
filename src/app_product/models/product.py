@@ -6,10 +6,6 @@ from utils.db.models import AbstractDateModel
 from utils.db import fields
 
 
-class ProductManager(models.Manager):
-    pass
-
-
 class Product(AbstractDateModel):
     name = models.CharField(max_length=32, unique=True, verbose_name=_("Name"))
     weight = models.PositiveIntegerField(
@@ -19,8 +15,6 @@ class Product(AbstractDateModel):
     )
     price = fields.PriceField(verbose_name=_("Price"))
     tax = fields.PercentField(verbose_name=_("Tax"))
-
-    objects = ProductManager()
 
     def __str__(self):
         return f"{self.pk} {self.name} {self.weight}Kg"

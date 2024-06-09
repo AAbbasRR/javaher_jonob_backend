@@ -1,3 +1,5 @@
+from rest_framework import response
+
 from app_customer.api.user.serializers.manage_customer import (
     ListAddUpdateCustomerSerializer,
 )
@@ -18,7 +20,7 @@ class ListCreateCustomerAPIView(generics.CustomListCreateAPIView):
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListAddUpdateCustomerSerializer
-    queryset = CustomerModel.objects.all()
+    queryset = CustomerModel.objects.all().order_by("create_at")
     search_fields = [
         "mobile_number",
         "full_name",
@@ -47,3 +49,13 @@ class UpdateDeleteCustomerAPIView(generics.CustomUpdateDestroyAPIView):
     serializer_class = ListAddUpdateCustomerSerializer
     queryset = CustomerModel.objects.all()
     object_name = "Customer"
+
+
+class LastCustomerCodeAPIView(generics.CustomGenericAPIView):
+    permission_classes = [IsAuthenticatedPermission, IsSecretaryOrAbovePermission]
+    versioning_class = BaseVersioning
+
+    def get(self, request, *args, **kwargs):
+        return response.Response(
+            CustomerModel.objects.order_by("customer_code").last().customer_code + 1
+        )

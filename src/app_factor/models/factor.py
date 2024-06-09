@@ -10,10 +10,6 @@ from utils.db.models import AbstractDateModel
 from utils.db import fields
 
 
-class FactorManager(models.Manager):
-    pass
-
-
 class Factor(AbstractDateModel):
     class PermissionForAcceptOptions(models.TextChoices):
         Superuser = "superuser_staff", _("Superuser Or Staff")
@@ -62,8 +58,6 @@ class Factor(AbstractDateModel):
     )
     payment_amount = fields.PriceField(verbose_name=_("Payment Amount"))
 
-    objects = FactorManager()
-
     def __str__(self):
         return f"{self.pk} {self.tracking_code}"
 
@@ -82,11 +76,12 @@ class Factor(AbstractDateModel):
         self.save()
 
 
-class FactorPaymentsManager(models.Manager):
-    pass
-
-
 class FactorPayments(AbstractDateModel):
+    class PaymentTypeOptions(models.TextChoices):
+        Check = "check", _("Check")
+        Cash = "cash", _("Cash")
+        Bank = "bank", _("Bank")
+
     factor = models.ForeignKey(
         Factor,
         on_delete=models.CASCADE,
@@ -94,8 +89,20 @@ class FactorPayments(AbstractDateModel):
         verbose_name=_("Factor"),
     )
     amount = fields.PriceField(verbose_name=_("Amount"))
-
-    objects = FactorPaymentsManager()
+    payment_type = models.CharField(
+        max_length=11,
+        choices=PaymentTypeOptions.choices,
+        default=PaymentTypeOptions.Cash,
+        verbose_name=_("Payment Type"),
+    )
+    payment_date = models.DateField(verbose_name=_("Payment Date"))
+    tracking_code = models.CharField(
+        max_length=15,
+        null=True,
+        blank=True,
+        verbose_name=_("Tracking Code"),
+    )
+    description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
 
     def __str__(self):
         return f"{self.factor} {self.amount}"

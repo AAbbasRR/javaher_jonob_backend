@@ -6,10 +6,6 @@ from app_customer.models import CustomerModel
 from utils.db.models import AbstractDateModel
 
 
-class CustomerAddressManager(models.Manager):
-    pass
-
-
 class CustomerAddress(AbstractDateModel):
     customer = models.ForeignKey(
         CustomerModel,
@@ -24,8 +20,6 @@ class CustomerAddress(AbstractDateModel):
     city = models.CharField(max_length=32, verbose_name=_("City"))
     street = models.CharField(max_length=32, verbose_name=_("Street"))
     full_address = models.TextField(verbose_name=_("Full Address"))
-
-    objects = CustomerAddressManager()
 
     def __str__(self):
         return f"{self.pk}"

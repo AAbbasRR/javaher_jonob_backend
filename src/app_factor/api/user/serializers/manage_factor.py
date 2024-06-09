@@ -19,6 +19,7 @@ class CustomerSerializer(CustomModelSerializer):
             "mobile_number",
             "full_name",
             "customer_code",
+            "marketer",
         )
 
 
@@ -33,6 +34,7 @@ class CustomerAddressSerializer(CustomModelSerializer):
 
 
 class FactorItemsSerializer(CustomModelSerializer):
+    id = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
     weight = serializers.SerializerMethodField()
 
@@ -48,6 +50,9 @@ class FactorItemsSerializer(CustomModelSerializer):
             "count",
         )
 
+    def get_id(self, obj):
+        return obj.product.id
+
     def get_name(self, obj):
         return obj.product.name
 
@@ -56,9 +61,23 @@ class FactorItemsSerializer(CustomModelSerializer):
 
 
 class FactorPaymentsSerializer(CustomModelSerializer):
+    payment_type_display = serializers.CharField(
+        source="get_payment_type_display", read_only=True
+    )
+
     class Meta:
         model = FactorPaymentsModel
-        fields = ("id", "factor", "amount", "formatted_create_at")
+        fields = (
+            "id",
+            "factor",
+            "amount",
+            "formatted_create_at",
+            "payment_type",
+            "payment_date",
+            "tracking_code",
+            "description",
+            "payment_type_display",
+        )
 
     def validate(self, attrs):
         payments_history = attrs["factor"].factor_payments.all()
@@ -77,7 +96,7 @@ class FactorPaymentsSerializer(CustomModelSerializer):
             total += item.amount
         if (factor_payment.factor.payment_amount - total) == 0:
             factor_payment.factor.payment_status = True
-            factor_payment.save()
+            factor_payment.factor.save()
         return factor_payment
 
 

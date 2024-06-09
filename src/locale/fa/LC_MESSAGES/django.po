@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-18 01:36+0330\n"
+"POT-Creation-Date: 2024-06-10 02:17+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,143 +17,184 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: app_customer/models/address.py:18 app_factor/models/factor.py:35
+
+#: app_customer/models/address.py:16 app_factor/models/factor.py:29
 msgid "Customer"
 msgstr "مشتری"
 
-#: app_customer/models/address.py:20
+#: app_customer/models/address.py:18
 msgid "Country"
 msgstr "کشور"
 
-#: app_customer/models/address.py:21
+#: app_customer/models/address.py:19
 msgid "State"
 msgstr "استان"
+
+#: app_customer/models/address.py:20
+msgid "City"
+msgstr "شهر"
+
+#: app_customer/models/address.py:21
+msgid "Street"
+msgstr "خیابان"
 
 #: app_customer/models/address.py:22
 msgid "Full Address"
 msgstr "آدرس کامل"
 
-#: app_customer/models/customer.py:13
+#: app_customer/models/customer.py:10
 msgid "Mobile Number"
 msgstr "شماره موبایل"
 
-#: app_customer/models/customer.py:14
+#: app_customer/models/customer.py:12
 msgid "Full Name"
 msgstr "نام و نام خانوادگی"
 
-#: app_customer/models/customer.py:20
+#: app_customer/models/customer.py:17
 msgid "Customer Code"
 msgstr "کد مشتری"
 
-#: app_customer/models/customer.py:23
+#: app_customer/models/customer.py:20
 msgid "National Code"
 msgstr "کد ملی"
 
-#: app_factor/models/factor.py:16
-msgid "Check"
-msgstr "چک"
-
-#: app_factor/models/factor.py:17
-msgid "Cash"
-msgstr "نقد"
-
-#: app_factor/models/factor.py:18
-msgid "Installment"
-msgstr "قسطی"
-
-#: app_factor/models/factor.py:21
-msgid "Superuser Or Staff"
-msgstr "سوپریوزر یا مدیر"
-
-#: app_factor/models/factor.py:22
-msgid "Secretary Or Superuser Or Staff"
-msgstr "سوپر یوزر یا مدیر یا منشی"
-
-#: app_factor/models/factor.py:29
-msgid "Tracking Code"
-msgstr "کد رهگیری"
-
-#: app_factor/models/factor.py:43
+#: app_customer/models/customer.py:23
 msgid "Marketer"
 msgstr "بازاریاب"
 
-#: app_factor/models/factor.py:49
+#: app_factor/models/factor.py:15
+msgid "Superuser Or Staff"
+msgstr "سوپریوزر یا مدیر"
+
+#: app_factor/models/factor.py:16
+msgid "Secretary Or Superuser Or Staff"
+msgstr "سوپر یوزر یا مدیر یا منشی"
+
+#: app_factor/models/factor.py:23 app_factor/models/factor.py:103
+msgid "Tracking Code"
+msgstr "کد رهگیری"
+
+#: app_factor/models/factor.py:35
 msgid "Address"
 msgstr "آدرس"
 
-#: app_factor/models/factor.py:51
+#: app_factor/models/factor.py:37
+#, fuzzy
+#| msgid "Factor"
+msgid "Factor Date"
+msgstr "تاریخ فاکتور"
+
+#: app_factor/models/factor.py:39
+msgid "Discount Is Percent"
+msgstr "تخفیف به صورت درصدی؟"
+
+#: app_factor/models/factor.py:41
+msgid "Discount Value"
+msgstr "مقدار تخفیف"
+
+#: app_factor/models/factor.py:42
 msgid "Is Accepted"
 msgstr "وضعیت تایید"
 
-#: app_factor/models/factor.py:52
+#: app_factor/models/factor.py:43 app_factor/models/factor.py:105
 msgid "Description"
 msgstr "توضیحات"
 
-#: app_factor/models/factor.py:56
-msgid "Payment Type"
-msgstr "نوع پرداخت"
-
-#: app_factor/models/factor.py:59
+#: app_factor/models/factor.py:45
 msgid "Payment Status"
 msgstr "وضعیت پرداخت"
 
-#: app_factor/models/factor.py:65
+#: app_factor/models/factor.py:51
 msgid "Store"
 msgstr "انبار"
 
-#: app_factor/models/factor.py:71
+#: app_factor/models/factor.py:57
 msgid "Permission For Accept"
 msgstr "دسترسی برای تایید"
 
-#: app_factor/models/factor_items.py:21
+#: app_factor/models/factor.py:59
+#, fuzzy
+#| msgid "Payment Status"
+msgid "Payment Amount"
+msgstr "مقدار پرداخت"
+
+#: app_factor/models/factor.py:81
+msgid "Check"
+msgstr "چک"
+
+#: app_factor/models/factor.py:82
+msgid "Cash"
+msgstr "نقد"
+
+#: app_factor/models/factor.py:83
+msgid "Bank"
+msgstr "به حساب"
+
+#: app_factor/models/factor.py:89 app_factor/models/factor_items.py:17
 msgid "Factor"
 msgstr "فاکتور"
 
-#: app_factor/models/factor_items.py:27
+#: app_factor/models/factor.py:91
+#, fuzzy
+#| msgid "Count"
+msgid "Amount"
+msgstr "مقدار"
+
+#: app_factor/models/factor.py:96
+msgid "Payment Type"
+msgstr "نوع پرداخت"
+
+#: app_factor/models/factor.py:98
+#, fuzzy
+#| msgid "Payment Status"
+msgid "Payment Date"
+msgstr "تاریخ پرداخت"
+
+#: app_factor/models/factor_items.py:23
 msgid "Product"
 msgstr "محصول"
 
-#: app_factor/models/factor_items.py:29 app_product/models/product.py:20
+#: app_factor/models/factor_items.py:25 app_product/models/product.py:16
 msgid "Price"
 msgstr "قیمت"
 
-#: app_factor/models/factor_items.py:30 app_product/models/product.py:21
+#: app_factor/models/factor_items.py:26 app_product/models/product.py:17
 msgid "Tax"
 msgstr "مالیات"
 
-#: app_factor/models/factor_items.py:32
+#: app_factor/models/factor_items.py:28
 msgid "Count"
 msgstr "تعداد"
 
-#: app_product/models/product.py:14 app_store/models/store.py:12
+#: app_product/models/product.py:10 app_store/models/store.py:8
 msgid "Name"
 msgstr "عنوان"
 
-#: app_product/models/product.py:18
+#: app_product/models/product.py:14
 msgid "Weight"
 msgstr "وزن"
 
-#: app_user/models/user.py:62
+#: app_user/models/user.py:63
 msgid "Superuser"
 msgstr "مدیر اصلی"
 
-#: app_user/models/user.py:63
+#: app_user/models/user.py:64
 msgid "Staff"
 msgstr "مدیر"
 
-#: app_user/models/user.py:64
+#: app_user/models/user.py:65
 msgid "Secretary"
 msgstr "منشی"
 
-#: app_user/models/user.py:65
+#: app_user/models/user.py:66
 msgid "Worker"
 msgstr "کارگر"
 
-#: app_user/models/user.py:74
+#: app_user/models/user.py:75
 msgid "Type"
 msgstr "نوع"
 
-#: app_user/models/user.py:79
+#: app_user/models/user.py:81
 msgid "Stores"
 msgstr "انبار ها"
 
@@ -199,14 +240,32 @@ msgstr "{object} پیدا نشد"
 msgid "Invalid Value"
 msgstr "مقدار نامتعبر"
 
-#: utils/base_errors.py:33
+#: utils/base_errors.py:34
 msgid "You Dont Have Permission For This Request"
 msgstr "شما دسترسی به انجام این درخواست ندارید"
 
-#: utils/db/models/date.py:11
+#: utils/base_errors.py:36
+#, python-brace-format
+msgid "The Maximum Value Should be {amount}"
+msgstr "حداکثر میتوانید {amount} وارد کنید"
+
+#: utils/db/models/date.py:22
 msgid "Created Time"
 msgstr "تاریخ ایجاد"
 
-#: utils/db/models/date.py:12
+#: utils/db/models/date.py:23
 msgid "Updated Time"
 msgstr "تاریخ بروزرسانی"
+
+#: utils/db/models/date.py:24
+msgid "Is Deleted"
+msgstr "پاک شده"
+
+#: utils/db/models/date.py:25
+#, fuzzy
+#| msgid "Created Time"
+msgid "Deleted Time"
+msgstr "تاریخ پاک شدن"
+
+#~ msgid "Installment"
+#~ msgstr "قسطی"

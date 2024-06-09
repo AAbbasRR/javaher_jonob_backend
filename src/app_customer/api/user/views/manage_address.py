@@ -27,7 +27,7 @@ class ListCreateCustomerAddressAPIView(generics.CustomListCreateAPIView):
     ]
 
     def get_queryset(self):
-        customer_value = self.request.query_params.get("customer", "")
+        customer_value = self.request.query_params.get("customer", None)
         blank_addresses = CustomerAddressModel.objects.filter(customer=None)
         customer_addresses = CustomerAddressModel.objects.filter(
             customer=customer_value
