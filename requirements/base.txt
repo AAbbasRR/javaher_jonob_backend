@@ -5,12 +5,15 @@ distlib==0.3.8
 Django==5.0.4
 django-cors-headers==4.3.1
 django-filter==24.2
+django-jalali-date==1.1.2
 django-modeltranslation==0.18.11
 djangorestframework==3.15.1
 djangorestframework-simplejwt==5.3.1
 filelock==3.13.3
 gunicorn==21.2.0
 identify==2.5.35
+jalali_core==1.0.0
+jdatetime==5.0.0
 nodeenv==1.8.0
 packaging==24.0
 platformdirs==4.2.0
