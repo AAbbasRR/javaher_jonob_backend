@@ -5,6 +5,7 @@ from app_factor.api.user.serializers.manage_factor import (
 )
 
 from app_factor.models import FactorModel, FactorPaymentsModel
+from app_factor.filters.factor import FactorListFilter
 
 from utils.views import generics
 from utils.views.paginations import BasePagination
@@ -39,6 +40,7 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
         "address__full_address",
         "store__name",
     ]
+    filterset_class = FactorListFilter
 
     def get_queryset(self):
         return FactorModel.objects.filter(store__in=self.request.user.stores.all())
@@ -47,7 +49,7 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
 class CreateFactorPaymentsAPIView(generics.CustomCreateAPIView):
     permission_classes = [
         IsAuthenticatedPermission,
-        IsWorkerOrAbovePermission,
+        IsSecretaryOrAbovePermission,
     ]
     versioning_class = BaseVersioning
     pagination_class = BasePagination
