@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "modeltranslation",
+    "import_export",
     # local apps
     "app_user",
     "app_customer",

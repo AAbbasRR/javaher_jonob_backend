@@ -11,6 +11,11 @@ urlpatterns = [
         name="manage_customer_list_create",
     ),
     path(
+        "manage/export/",
+        ExportListCustomerAPIView.as_view(),
+        name="manage_export_customer",
+    ),
+    path(
         "manage/last_customer_code/",
         LastCustomerCodeAPIView.as_view(),
         name="manage_last_customer_cde",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 02:17+0330\n"
+"POT-Creation-Date: 2024-06-12 15:38+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app_customer/api/user/serializers/manage_customer.py:37
+msgid "customer_code"
+msgstr "کد مشتری"
+
+#: app_customer/api/user/serializers/manage_customer.py:38
+msgid "national_code"
+msgstr "کد ملی"
+
+#: app_customer/api/user/serializers/manage_customer.py:39
+msgid "mobile_number"
+msgstr "شماره موبایل"
+
+#: app_customer/api/user/serializers/manage_customer.py:40
+msgid "full_name"
+msgstr "نام و نام خانوادگی"
+
+#: app_customer/api/user/serializers/manage_customer.py:41
+msgid "marketer"
+msgstr "بازاریاب"
 
 #: app_customer/models/address.py:16 app_factor/models/factor.py:29
 msgid "Customer"
@@ -79,8 +99,6 @@ msgid "Address"
 msgstr "آدرس"
 
 #: app_factor/models/factor.py:37
-#, fuzzy
-#| msgid "Factor"
 msgid "Factor Date"
 msgstr "تاریخ فاکتور"
 
@@ -113,8 +131,6 @@ msgid "Permission For Accept"
 msgstr "دسترسی برای تایید"
 
 #: app_factor/models/factor.py:59
-#, fuzzy
-#| msgid "Payment Status"
 msgid "Payment Amount"
 msgstr "مقدار پرداخت"
 
@@ -135,8 +151,6 @@ msgid "Factor"
 msgstr "فاکتور"
 
 #: app_factor/models/factor.py:91
-#, fuzzy
-#| msgid "Count"
 msgid "Amount"
 msgstr "مقدار"
 
@@ -145,8 +159,6 @@ msgid "Payment Type"
 msgstr "نوع پرداخت"
 
 #: app_factor/models/factor.py:98
-#, fuzzy
-#| msgid "Payment Status"
 msgid "Payment Date"
 msgstr "تاریخ پرداخت"
 
@@ -257,15 +269,10 @@ msgstr "تاریخ ایجاد"
 msgid "Updated Time"
 msgstr "تاریخ بروزرسانی"
 
-#: utils/db/models/date.py:24
+#: utils/db/models/date.py:25
 msgid "Is Deleted"
 msgstr "پاک شده"
 
-#: utils/db/models/date.py:25
-#, fuzzy
-#| msgid "Created Time"
+#: utils/db/models/date.py:28
 msgid "Deleted Time"
 msgstr "تاریخ پاک شدن"
-
-#~ msgid "Installment"
-#~ msgstr "قسطی"

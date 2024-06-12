@@ -18,6 +18,8 @@ class ListCreateCustomerAddressAPIView(generics.CustomListCreateAPIView):
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListAddUpdateCustomerAddressSerializer
+    queryset = CustomerAddressModel.objects.all()
+    filterset_fields = ["customer"]
     search_fields = [
         "country",
         "state",
@@ -25,14 +27,6 @@ class ListCreateCustomerAddressAPIView(generics.CustomListCreateAPIView):
         "street",
         "full_address",
     ]
-
-    def get_queryset(self):
-        customer_value = self.request.query_params.get("customer", None)
-        blank_addresses = CustomerAddressModel.objects.filter(customer=None)
-        customer_addresses = CustomerAddressModel.objects.filter(
-            customer=customer_value
-        )
-        return customer_addresses | blank_addresses
 
     def get_permissions(self):
         if self.request.method == "GET":
