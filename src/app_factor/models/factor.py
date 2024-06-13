@@ -59,6 +59,8 @@ class Factor(AbstractDateModel):
     payment_amount = fields.PriceField(verbose_name=_("Payment Amount"))
     driver = models.ForeignKey(
         DriverModel,
+        null=True,
+        blank=True,
         related_name="driver_factors",
         on_delete=models.CASCADE,
         verbose_name=_("Driver"),
