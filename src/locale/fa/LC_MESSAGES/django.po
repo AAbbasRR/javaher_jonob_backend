@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-12 15:38+0330\n"
+"POT-Creation-Date: 2024-06-14 02:12+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,11 +62,11 @@ msgstr "خیابان"
 msgid "Full Address"
 msgstr "آدرس کامل"
 
-#: app_customer/models/customer.py:10
+#: app_customer/models/customer.py:10 app_driver/models/driver.py:10
 msgid "Mobile Number"
 msgstr "شماره موبایل"
 
-#: app_customer/models/customer.py:12
+#: app_customer/models/customer.py:12 app_driver/models/driver.py:12
 msgid "Full Name"
 msgstr "نام و نام خانوادگی"
 
@@ -82,6 +82,10 @@ msgstr "کد ملی"
 msgid "Marketer"
 msgstr "بازاریاب"
 
+#: app_driver/models/driver.py:13
+msgid "Plate Number"
+msgstr "شماره پلاک"
+
 #: app_factor/models/factor.py:15
 msgid "Superuser Or Staff"
 msgstr "سوپریوزر یا مدیر"
@@ -90,7 +94,7 @@ msgstr "سوپریوزر یا مدیر"
 msgid "Secretary Or Superuser Or Staff"
 msgstr "سوپر یوزر یا مدیر یا منشی"
 
-#: app_factor/models/factor.py:23 app_factor/models/factor.py:103
+#: app_factor/models/factor.py:23 app_factor/models/factor.py:111
 msgid "Tracking Code"
 msgstr "کد رهگیری"
 
@@ -114,7 +118,7 @@ msgstr "مقدار تخفیف"
 msgid "Is Accepted"
 msgstr "وضعیت تایید"
 
-#: app_factor/models/factor.py:43 app_factor/models/factor.py:105
+#: app_factor/models/factor.py:43 app_factor/models/factor.py:113
 msgid "Description"
 msgstr "توضیحات"
 
@@ -134,31 +138,35 @@ msgstr "دسترسی برای تایید"
 msgid "Payment Amount"
 msgstr "مقدار پرداخت"
 
-#: app_factor/models/factor.py:81
+#: app_factor/models/factor.py:66
+msgid "Driver"
+msgstr "راننده"
+
+#: app_factor/models/factor.py:89
 msgid "Check"
 msgstr "چک"
 
-#: app_factor/models/factor.py:82
+#: app_factor/models/factor.py:90
 msgid "Cash"
 msgstr "نقد"
 
-#: app_factor/models/factor.py:83
+#: app_factor/models/factor.py:91
 msgid "Bank"
 msgstr "به حساب"
 
-#: app_factor/models/factor.py:89 app_factor/models/factor_items.py:17
+#: app_factor/models/factor.py:97 app_factor/models/factor_items.py:17
 msgid "Factor"
 msgstr "فاکتور"
 
-#: app_factor/models/factor.py:91
+#: app_factor/models/factor.py:99
 msgid "Amount"
 msgstr "مقدار"
 
-#: app_factor/models/factor.py:96
+#: app_factor/models/factor.py:104
 msgid "Payment Type"
 msgstr "نوع پرداخت"
 
-#: app_factor/models/factor.py:98
+#: app_factor/models/factor.py:106
 msgid "Payment Date"
 msgstr "تاریخ پرداخت"
 
@@ -260,6 +268,10 @@ msgstr "شما دسترسی به انجام این درخواست ندارید"
 #, python-brace-format
 msgid "The Maximum Value Should be {amount}"
 msgstr "حداکثر میتوانید {amount} وارد کنید"
+
+#: utils/base_errors.py:38
+msgid "The difference from date to date should not be more than 30 days"
+msgstr "اختلاف بین از تاریخ و تا تاریخ نباید بیشتر از ۳۰ روز باشد"
 
 #: utils/db/models/date.py:22
 msgid "Created Time"
