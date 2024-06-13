@@ -39,6 +39,9 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
         "address__street",
         "address__full_address",
         "store__name",
+        "driver__full_name",
+        "driver__mobile_number",
+        "driver__plate_number",
     ]
     filterset_class = FactorListFilter
 

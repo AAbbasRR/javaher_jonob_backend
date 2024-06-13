@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from app_factor.models import FactorModel, FactorItemsModel, FactorPaymentsModel
 from app_customer.models import CustomerModel, CustomerAddressModel
+from app_driver.models import DriverModel
 
 from utils.serializers.serializer import CustomModelSerializer
 from utils.exceptions.rest import (
@@ -100,6 +101,16 @@ class FactorPaymentsSerializer(CustomModelSerializer):
         return factor_payment
 
 
+class DriverSerializer(CustomModelSerializer):
+    class Meta:
+        model = DriverModel
+        fields = (
+            "mobile_number",
+            "full_name",
+            "plate_number",
+        )
+
+
 class ListAddUpdateFactorSerializer(CustomModelSerializer):
     factor_items = FactorItemsSerializer(required=True, many=True)
     factor_payments = FactorPaymentsSerializer(many=True, read_only=True)
@@ -107,6 +118,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
     customer_data = serializers.SerializerMethodField()
     address_data = serializers.SerializerMethodField()
     can_accept = serializers.SerializerMethodField()
+    driver_data = serializers.SerializerMethodField()
 
     class Meta:
         model = FactorModel
@@ -114,9 +126,11 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             "id",
             "tracking_code",
             "customer",
+            "driver",
             "address",
             "customer_data",
             "address_data",
+            "driver_data",
             "factor_date",
             "discount_is_percent",
             "discount_value",
@@ -142,6 +156,9 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
 
     def get_address_data(self, obj):
         return CustomerAddressSerializer(obj.address, many=False).data
+
+    def get_driver_data(self, obj):
+        return DriverSerializer(obj.driver, many=False).data
 
     def get_store_data(self, obj):
         return obj.store.name

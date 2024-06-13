@@ -33,11 +33,10 @@ class DashboardInfoDataAPIView(generics.CustomGenericAPIView):
             create_at__gte=start_of_today,
             create_at__lt=start_of_tomorrow,
         )
-        today_factor_ids = today_factors.values_list("id", flat=True)
 
-        total_price = FactorItemsModel.objects.filter(
-            factor_id__in=today_factor_ids
-        ).aggregate(total_price=Sum("price"))["total_price"]
+        total_price = today_factors.aggregate(total_price=Sum("payment_amount"))[
+            "total_price"
+        ]
         if total_price is None:
             total_price = 0
 

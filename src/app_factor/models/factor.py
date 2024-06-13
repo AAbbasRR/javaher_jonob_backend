@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
 from config import settings
 from app_customer.models import CustomerModel, CustomerAddressModel
 from app_store.models import StoreModel
+from app_driver.models import DriverModel
 
 from utils.db.models import AbstractDateModel
 from utils.db import fields
@@ -57,6 +57,12 @@ class Factor(AbstractDateModel):
         verbose_name=_("Permission For Accept"),
     )
     payment_amount = fields.PriceField(verbose_name=_("Payment Amount"))
+    driver = models.ForeignKey(
+        DriverModel,
+        related_name="driver_factors",
+        on_delete=models.CASCADE,
+        verbose_name=_("Driver"),
+    )
 
     def __str__(self):
         return f"{self.pk} {self.tracking_code}"

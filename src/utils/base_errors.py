@@ -34,3 +34,6 @@ class BaseErrors:
         "You Dont Have Permission For This Request"
     )
     the_maximum_value_should_be_amount = _("The Maximum Value Should be {amount}")
+    filter_date_difference_should_not_more_than_30_days = _(
+        "The difference from date to date should not be more than 30 days"
+    )
