@@ -13,8 +13,6 @@ class AbstractSoftDeleteQueryset(models.QuerySet):
 
 
 class AbstractSoftDeleteManager(models.Manager):
-    pass
-
     def get_queryset(self):
         return AbstractSoftDeleteQueryset(self.model, self._db).filter(is_deleted=False)
 
