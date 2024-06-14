@@ -6,11 +6,11 @@ from app_customer.models import CustomerModel, CustomerAddressModel
 from app_store.models import StoreModel
 from app_driver.models import DriverModel
 
-from utils.db.models import AbstractDateModel
+from utils.db.models import AbstractDateModel, AbstractSoftDeleteModel
 from utils.db import fields
 
 
-class Factor(AbstractDateModel):
+class Factor(AbstractDateModel, AbstractSoftDeleteModel):
     class PermissionForAcceptOptions(models.TextChoices):
         Superuser = "superuser_staff", _("Superuser Or Staff")
         Secretary = "secretary_superuser_staff", _("Secretary Or Superuser Or Staff")
@@ -84,7 +84,7 @@ class Factor(AbstractDateModel):
         self.save()
 
 
-class FactorPayments(AbstractDateModel):
+class FactorPayments(AbstractDateModel, AbstractSoftDeleteModel):
     class PaymentTypeOptions(models.TextChoices):
         Check = "check", _("Check")
         Cash = "cash", _("Cash")

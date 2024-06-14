@@ -2,16 +2,21 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager, update_las
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from django.core.management import settings
+from django.utils import timezone
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from app_store.models import StoreModel
 
 from utils.exceptions.core import InvalidUsernameOrPasswordError
-from utils.db.models import AbstractDateModel, AbstractDateManager
+from utils.db.models import (
+    AbstractDateModel,
+    AbstractSoftDeleteManager,
+    AbstractSoftDeleteModel,
+)
 
 
-class UserManager(BaseUserManager, AbstractDateManager):
+class UserManager(BaseUserManager, AbstractSoftDeleteManager):
     def authenticate_user(self, username, password, **kwargs):
         try:
             user_obj = self.get(username=username, **kwargs)
@@ -58,7 +63,7 @@ class UserManager(BaseUserManager, AbstractDateManager):
         return user
 
 
-class User(AbstractUser, AbstractDateModel):
+class User(AbstractUser, AbstractDateModel, AbstractSoftDeleteModel):
     class UserTypeOptions(models.TextChoices):
         Superuser = "superuser", _("Superuser")
         Staff = "staff", _("Staff")
@@ -86,6 +91,12 @@ class User(AbstractUser, AbstractDateModel):
 
     def __str__(self):
         return f"{self.pk} {self.username}"
+
+    def delete(self, using=None, keep_parents=False):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.username = f"{self.pk}{self.username}__Deleted"
+        self.save()
 
     def formatted_last_login(self):
         if self.last_login is None:

@@ -1,11 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from utils.db.models import AbstractDateModel
+from utils.db.models import AbstractDateModel, AbstractSoftDeleteModel
 from utils.db import fields
 
 
-class Customer(AbstractDateModel):
+class Customer(AbstractDateModel, AbstractSoftDeleteModel):
     mobile_number = fields.PhoneField(
         null=True, blank=True, verbose_name=_("Mobile Number")
     )

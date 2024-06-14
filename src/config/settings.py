@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "app_factor",
     "app_dashboard",
     "app_driver",
+    "app_history",
 ]
 
 MIDDLEWARE = [

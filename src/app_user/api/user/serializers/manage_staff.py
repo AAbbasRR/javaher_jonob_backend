@@ -6,10 +6,17 @@ from app_user.models import UserModel
 from app_store.models import StoreModel
 
 from utils.serializers.serializer import CustomModelSerializer
+from utils.db.validators import UniqueValidator
 
 
 class ListAddUpdateStaffSerializer(CustomModelSerializer):
     type_display = serializers.CharField(source="get_type_display", read_only=True)
+    username = serializers.CharField(
+        required=True,
+        validators=[
+            UniqueValidator(queryset=UserModel.objects.all()),
+        ],
+    )
 
     class Meta:
         model = UserModel
@@ -35,6 +42,8 @@ class ListAddUpdateStaffSerializer(CustomModelSerializer):
             stores_data = StoreModel.objects.all()
         if stores_data:
             user.stores.set(stores_data)
+        user.last_modified_by = self.user
+        user.save()
         return user
 
     def update(self, instance, validated_data):
@@ -49,5 +58,6 @@ class ListAddUpdateStaffSerializer(CustomModelSerializer):
                 stores_data = StoreModel.objects.all()
             if stores_data:
                 instance.stores.set(stores_data)
+            instance.last_modified_by = self.user
             instance.save()
         return instance

@@ -179,6 +179,12 @@ class CustomDestroyAPIView(generics.DestroyAPIView):
     ]
     object_name = ""
 
+    def perform_destroy(self, instance):
+        user = self.request.user
+        if user.is_authenticated:
+            instance.last_modified_by = user
+        instance.delete()
+
     def get_object(self):
         param_error = False
         filter = {}
@@ -211,6 +217,12 @@ class CustomUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         "pk",
     ]
     object_name = ""
+
+    def perform_destroy(self, instance):
+        user = self.request.user
+        if user.is_authenticated:
+            instance.last_modified_by = user
+        instance.delete()
 
     def get_object(self):
         param_error = False

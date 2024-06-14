@@ -19,11 +19,12 @@ class ListAddUpdateProductSerializer(CustomModelSerializer):
         )
 
     def create(self, validated_data):
-        return ProductModel.objects.create(**validated_data)
+        return ProductModel.objects.create(last_modified_by=self.user, **validated_data)
 
     def update(self, instance, validated_data):
         with transaction.atomic():
             for field_name in validated_data:
                 setattr(instance, field_name, validated_data[field_name])
+            instance.last_modified_by = self.user
             instance.save()
         return instance

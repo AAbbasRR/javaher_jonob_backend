@@ -3,10 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from app_customer.models import CustomerModel
 
-from utils.db.models import AbstractDateModel
+from utils.db.models import AbstractDateModel, AbstractSoftDeleteModel
 
 
-class CustomerAddress(AbstractDateModel):
+class CustomerAddress(AbstractDateModel, AbstractSoftDeleteModel):
     customer = models.ForeignKey(
         CustomerModel,
         on_delete=models.CASCADE,

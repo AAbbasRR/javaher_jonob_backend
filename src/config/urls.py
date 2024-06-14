@@ -29,6 +29,10 @@ v1_urlpatterns = [
         include("app_driver.api.user.urls", namespace="app_driver_user"),
     ),
     path(
+        "history/",
+        include("app_history.api.user.urls", namespace="app_history_user"),
+    ),
+    path(
         "dashboard/",
         include("app_dashboard.api.user.urls", namespace="app_dashboard_user"),
     ),

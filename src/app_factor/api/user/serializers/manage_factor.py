@@ -90,15 +90,19 @@ class FactorPaymentsSerializer(CustomModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        factor_payment = FactorPaymentsModel.objects.create(**validated_data)
-        payments_history = factor_payment.factor.factor_payments.all()
-        total = 0
-        for item in payments_history:
-            total += item.amount
-        if (factor_payment.factor.payment_amount - total) == 0:
-            factor_payment.factor.payment_status = True
-            factor_payment.factor.save()
-        return factor_payment
+        with transaction.atomic():
+            factor_payment = FactorPaymentsModel(
+                last_modified_by=self.user, **validated_data
+            )
+            payments_history = factor_payment.factor.factor_payments.all()
+            total = 0
+            for item in payments_history:
+                total += item.amount
+            if (factor_payment.factor.payment_amount - total) == 0:
+                factor_payment.factor.payment_status = True
+                factor_payment.factor.save()
+            factor_payment.save()
+            return factor_payment
 
 
 class DriverSerializer(CustomModelSerializer):
@@ -168,25 +172,31 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
 
     def create(self, validated_data):
         product_items = validated_data.pop("factor_items", [])
-        factor = FactorModel.objects.create(**validated_data)
-        for product in product_items:
-            FactorItemsModel.objects.create(factor=factor, **product)
-        if self.user.type in [
-            self.user.UserTypeOptions.Superuser,
-            self.user.UserTypeOptions.Staff,
-        ]:
-            factor.is_accepted = True
-        else:
-            if self.user.type == self.user.UserTypeOptions.Worker:
-                factor.permission_for_accept = (
-                    FactorModel.PermissionForAcceptOptions.Secretary
+        with transaction.atomic():
+            factor = FactorModel(
+                last_modified_by=self.user,
+                **validated_data,
+            )
+            for product in product_items:
+                FactorItemsModel.objects.create(
+                    factor=factor, last_modified_by=self.user, **product
                 )
+            if self.user.type in [
+                self.user.UserTypeOptions.Superuser,
+                self.user.UserTypeOptions.Staff,
+            ]:
+                factor.is_accepted = True
             else:
-                factor.permission_for_accept = (
-                    FactorModel.PermissionForAcceptOptions.Superuser
-                )
-        factor.save()
-        factor.calculate_payment_amount()
+                if self.user.type == self.user.UserTypeOptions.Worker:
+                    factor.permission_for_accept = (
+                        FactorModel.PermissionForAcceptOptions.Secretary
+                    )
+                else:
+                    factor.permission_for_accept = (
+                        FactorModel.PermissionForAcceptOptions.Superuser
+                    )
+            factor.save()
+            factor.calculate_payment_amount()
         return factor
 
     def update(self, instance, validated_data):
@@ -197,7 +207,9 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             instance.save()
         instance.factor_items.all().delete()
         for product in product_items:
-            FactorItemsModel.objects.create(factor=instance, **product)
+            FactorItemsModel.objects.create(
+                factor=instance, last_modified_by=self.user, **product
+            )
         if self.user.type in [
             self.user.UserTypeOptions.Superuser,
             self.user.UserTypeOptions.Staff,
@@ -212,6 +224,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
                 instance.permission_for_accept = (
                     FactorModel.PermissionForAcceptOptions.Superuser
                 )
+        instance.last_modified_by = self.user
         instance.save()
         instance.calculate_payment_amount()
         return instance
@@ -229,6 +242,7 @@ class AcceptFactorSerializer(CustomModelSerializer):
     def update(self, instance, validated_data):
         if self.user.type in instance.permission_for_accept:
             instance.is_accepted = True
+            instance.last_modified_by = self.user
             instance.save()
             return instance
         else:

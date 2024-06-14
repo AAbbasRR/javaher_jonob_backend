@@ -2,11 +2,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
 
-from utils.db.models import AbstractDateModel
+from utils.db.models import AbstractDateModel, AbstractSoftDeleteModel
 from utils.db import fields
 
 
-class Product(AbstractDateModel):
+class Product(AbstractDateModel, AbstractSoftDeleteModel):
     name = models.CharField(max_length=32, unique=True, verbose_name=_("Name"))
     weight = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
