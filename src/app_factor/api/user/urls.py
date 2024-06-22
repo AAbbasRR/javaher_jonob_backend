@@ -11,6 +11,11 @@ urlpatterns = [
         name="list_create_manage_factor",
     ),
     path(
+        "manage/export/",
+        ExportListFactorAPIView.as_view(),
+        name="export_list_factor",
+    ),
+    path(
         "manage/payments/create/",
         CreateFactorPaymentsAPIView.as_view(),
         name="create_factor_payments",

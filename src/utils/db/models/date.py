@@ -56,6 +56,13 @@ class AbstractSoftDeleteModel(models.Model):
 
     objects = AbstractSoftDeleteManager()
 
+    def formatted_deleted_at(self):
+        if self.deleted_at is None or self.deleted_at == "":
+            return None
+        return self.deleted_at.strftime(
+            f"{settings.DATE_INPUT_FORMATS} {settings.TIME_INPUT_FORMATS}"
+        )
+
     def delete(self, using=None, keep_parents=False):
         self.is_deleted = True
         self.deleted_at = timezone.now()

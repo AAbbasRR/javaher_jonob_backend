@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-15 00:40+0330\n"
+"POT-Creation-Date: 2024-06-22 12:12+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: app_customer/api/user/serializers/manage_customer.py:38
+#: app_customer/api/user/serializers/manage_customer.py:40
 msgid "customer_code"
 msgstr "کد مشتری"
 
-#: app_customer/api/user/serializers/manage_customer.py:39
+#: app_customer/api/user/serializers/manage_customer.py:41
 msgid "national_code"
 msgstr "کد ملی"
 
-#: app_customer/api/user/serializers/manage_customer.py:40
+#: app_customer/api/user/serializers/manage_customer.py:42
 msgid "mobile_number"
 msgstr "شماره موبایل"
 
-#: app_customer/api/user/serializers/manage_customer.py:41
+#: app_customer/api/user/serializers/manage_customer.py:43
 msgid "full_name"
 msgstr "نام و نام خانوادگی"
 
-#: app_customer/api/user/serializers/manage_customer.py:42
+#: app_customer/api/user/serializers/manage_customer.py:44
 msgid "marketer"
 msgstr "بازاریاب"
 
@@ -85,6 +85,82 @@ msgstr "بازاریاب"
 #: app_driver/models/driver.py:13
 msgid "Plate Number"
 msgstr "شماره پلاک"
+
+#: app_factor/api/user/serializers/manage_factor.py:259
+msgid "id"
+msgstr "آیدی"
+
+#: app_factor/api/user/serializers/manage_factor.py:260
+msgid "tracking_code"
+msgstr "کد رهگیری"
+
+#: app_factor/api/user/serializers/manage_factor.py:261
+msgid "factor_date"
+msgstr "تاریخ فاکتور"
+
+#: app_factor/api/user/serializers/manage_factor.py:262
+msgid "payment_amount"
+msgstr "مقدار پرداخت"
+
+#: app_factor/api/user/serializers/manage_factor.py:263
+msgid "discount_value"
+msgstr "مقدار تخفیف"
+
+#: app_factor/api/user/serializers/manage_factor.py:264
+msgid "payment_status"
+msgstr "وضعیت پرداخت"
+
+#: app_factor/api/user/serializers/manage_factor.py:265
+msgid "store_name"
+msgstr "نام شعبه انبار"
+
+#: app_factor/api/user/serializers/manage_factor.py:266
+msgid "customer_mobile_number"
+msgstr "شماره موبایل مشتری"
+
+#: app_factor/api/user/serializers/manage_factor.py:267
+msgid "customer_full_name"
+msgstr "نام و نام خانوادگی مشتری"
+
+#: app_factor/api/user/serializers/manage_factor.py:268
+msgid "customer_customer_code"
+msgstr "کد مشتری"
+
+#: app_factor/api/user/serializers/manage_factor.py:269
+msgid "customer_national_code"
+msgstr "کد ملی مشتری"
+
+#: app_factor/api/user/serializers/manage_factor.py:270
+msgid "customer_marketer"
+msgstr "بازاریاب"
+
+#: app_factor/api/user/serializers/manage_factor.py:271
+msgid "address"
+msgstr "آدرس"
+
+#: app_factor/api/user/serializers/manage_factor.py:272
+msgid "driver_name"
+msgstr "نام راننده"
+
+#: app_factor/api/user/serializers/manage_factor.py:273
+msgid "driver_mobile"
+msgstr "شماره تماس راننده"
+
+#: app_factor/api/user/serializers/manage_factor.py:274
+msgid "driver_plate"
+msgstr "شماره پلاک راننده"
+
+#: app_factor/api/user/serializers/manage_factor.py:275
+msgid "description"
+msgstr "توضیحات"
+
+#: app_factor/api/user/serializers/manage_factor.py:317
+msgid "Yes"
+msgstr "بله"
+
+#: app_factor/api/user/serializers/manage_factor.py:317
+msgid "No"
+msgstr "خیر"
 
 #: app_factor/models/factor.py:15
 msgid "Superuser Or Staff"
@@ -198,27 +274,27 @@ msgstr "بروزرسانی"
 msgid "Delete"
 msgstr "پاک کردن"
 
-#: app_history/models/log_entry.py:16
+#: app_history/models/log_entry.py:14
 msgid "Model Name"
 msgstr "نام بخش"
 
-#: app_history/models/log_entry.py:19
+#: app_history/models/log_entry.py:15
 msgid "Object Id"
 msgstr "آیدی ردیف"
 
-#: app_history/models/log_entry.py:27
+#: app_history/models/log_entry.py:22
 msgid "User"
 msgstr "کاربر"
 
-#: app_history/models/log_entry.py:33 app_history/models/log_entry.py:37
+#: app_history/models/log_entry.py:28 app_history/models/log_entry.py:30
 msgid "Time"
 msgstr "زمان"
 
-#: app_history/models/log_entry.py:42
+#: app_history/models/log_entry.py:31
 msgid "Data Before"
 msgstr "داده ها قبل از تغییر"
 
-#: app_history/models/log_entry.py:47
+#: app_history/models/log_entry.py:32
 msgid "Data After"
 msgstr "داده ها بعد از تغییر"
 
@@ -230,27 +306,27 @@ msgstr "عنوان"
 msgid "Weight"
 msgstr "وزن"
 
-#: app_user/models/user.py:64
+#: app_user/models/user.py:68
 msgid "Superuser"
 msgstr "مدیر اصلی"
 
-#: app_user/models/user.py:65
+#: app_user/models/user.py:69
 msgid "Staff"
 msgstr "مدیر"
 
-#: app_user/models/user.py:66
+#: app_user/models/user.py:70
 msgid "Secretary"
 msgstr "منشی"
 
-#: app_user/models/user.py:67
+#: app_user/models/user.py:71
 msgid "Worker"
 msgstr "کارگر"
 
-#: app_user/models/user.py:76
+#: app_user/models/user.py:80
 msgid "Type"
 msgstr "نوع"
 
-#: app_user/models/user.py:82
+#: app_user/models/user.py:86
 msgid "Stores"
 msgstr "انبار ها"
 

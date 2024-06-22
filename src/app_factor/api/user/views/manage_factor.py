@@ -1,7 +1,10 @@
+from django.http import HttpResponse
+
 from app_factor.api.user.serializers.manage_factor import (
     ListAddUpdateFactorSerializer,
     FactorPaymentsSerializer,
     AcceptFactorSerializer,
+    ListFactorsExportResource,
 )
 
 from app_factor.models import FactorModel, FactorPaymentsModel
@@ -47,6 +50,40 @@ class ListCreateFactorAPIView(generics.CustomListCreateAPIView):
 
     def get_queryset(self):
         return FactorModel.objects.filter(store__in=self.request.user.stores.all())
+
+
+class ExportListFactorAPIView(generics.CustomListAPIView):
+    permission_classes = [IsAuthenticatedPermission, IsSecretaryOrAbovePermission]
+    versioning_class = BaseVersioning
+    search_fields = [
+        "tracking_code",
+        "description",
+        "customer__mobile_number",
+        "customer__full_name",
+        "customer__customer_code",
+        "customer__national_code",
+        "address__country",
+        "address__state",
+        "address__city",
+        "address__street",
+        "address__full_address",
+        "store__name",
+        "driver__full_name",
+        "driver__mobile_number",
+        "driver__plate_number",
+    ]
+    filterset_class = FactorListFilter
+
+    def get_queryset(self):
+        return FactorModel.objects.filter(store__in=self.request.user.stores.all())
+
+    def get(self, *args, **kwargs):
+        resource_class = ListFactorsExportResource()
+        dataset = resource_class.export(self.filter_queryset(self.get_queryset()))
+
+        result = HttpResponse(dataset.xlsx, content_type="text/xlsx")
+        result["Content-Disposition"] = 'attachment; filename="export_factors.csv"'
+        return result
 
 
 class CreateFactorPaymentsAPIView(generics.CustomCreateAPIView):

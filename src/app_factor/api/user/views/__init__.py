@@ -3,4 +3,5 @@ from .manage_factor import (
     CreateFactorPaymentsAPIView,
     UpdateDeleteFactorAPIView,
     AcceptFactorAPIView,
+    ExportListFactorAPIView,
 )

@@ -10,11 +10,29 @@ from app_history.models import LogEntryModel
 
 def get_serializable_dict(instance):
     """
-    Return a dictionary representation of the instance, excluding non-serializable fields.
+    Return a dictionary representation of the instance, excluding non-serializable fields and sensitive fields.
     """
     data = instance.__dict__.copy()
     # Exclude the non-serializable _state field
     data.pop("_state", None)
+    # Exclude sensitive fields
+    sensitive_fields = ["password", "_password"]
+    for field in sensitive_fields:
+        data.pop(field, None)
+
+    timestamp_fields = [
+        "create_at",
+        "updated_at",
+        "deleted_at",
+        "last_login",
+        "date_joined",
+    ]
+    for field in timestamp_fields:
+        if field in data and data[field] is not None:
+            formatted_field = f"formatted_{field}"
+            formatted_function = getattr(instance, formatted_field)
+            data[field] = formatted_function()
+
     return data
 
 
