@@ -16,7 +16,7 @@ def get_serializable_dict(instance):
     # Exclude the non-serializable _state field
     data.pop("_state", None)
     # Exclude sensitive fields
-    sensitive_fields = ["password", "_password"]
+    sensitive_fields = ["password", "_password", "factor_file"]
     for field in sensitive_fields:
         data.pop(field, None)
 

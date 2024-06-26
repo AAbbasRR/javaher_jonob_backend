@@ -13,6 +13,7 @@ class ListAddUpdateDriverSerializer(CustomModelSerializer):
             "mobile_number",
             "full_name",
             "plate_number",
+            "state",
             "formatted_create_at",
             "formatted_updated_at",
         )

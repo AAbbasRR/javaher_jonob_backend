@@ -19,7 +19,7 @@ class ListLogEntryAPIView(generics.CustomListAPIView):
     versioning_class = BaseVersioning
     pagination_class = BasePagination
     serializer_class = ListLogEntrySerializer
-    queryset = LogEntryModel.objects.all()
+    queryset = LogEntryModel.objects.all().order_by("-id")
     search_fields = [
         "user__username",
         "user__first_name",

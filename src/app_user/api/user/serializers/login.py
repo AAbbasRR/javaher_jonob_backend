@@ -15,6 +15,7 @@ class UserLoginSerializer(CustomModelSerializer):
         extra_kwargs = {"username": {"validators": []}}
 
     def validate(self, attrs):
+        print(attrs)
         try:
             user_obj = UserModel.objects.authenticate_user(**attrs)
             if user_obj.is_active is False:

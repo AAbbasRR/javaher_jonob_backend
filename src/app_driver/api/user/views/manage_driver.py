@@ -19,11 +19,7 @@ class ListCreateDriverAPIView(generics.CustomListCreateAPIView):
     pagination_class = BasePagination
     serializer_class = ListAddUpdateDriverSerializer
     queryset = DriverModel.objects.all()
-    search_fields = [
-        "mobile_number",
-        "full_name",
-        "plate_number",
-    ]
+    search_fields = ["mobile_number", "full_name", "plate_number", "state"]
 
     def get_permissions(self):
         if self.request.method == "GET":

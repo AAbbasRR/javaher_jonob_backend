@@ -114,11 +114,7 @@ class FactorPaymentsSerializer(CustomModelSerializer):
 class DriverSerializer(CustomModelSerializer):
     class Meta:
         model = DriverModel
-        fields = (
-            "mobile_number",
-            "full_name",
-            "plate_number",
-        )
+        fields = ("mobile_number", "full_name", "plate_number", "state")
 
 
 class ListAddUpdateFactorSerializer(CustomModelSerializer):
@@ -129,6 +125,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
     address_data = serializers.SerializerMethodField()
     can_accept = serializers.SerializerMethodField()
     driver_data = serializers.SerializerMethodField()
+    factor_file = serializers.SerializerMethodField()
 
     class Meta:
         model = FactorModel
@@ -153,6 +150,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
             "factor_payments",
             "can_accept",
             "store_data",
+            "factor_file",
             "formatted_create_at",
             "formatted_updated_at",
         )
@@ -176,6 +174,9 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
     def get_can_accept(self, obj):
         return self.user.type in obj.permission_for_accept
 
+    def get_factor_file(self, obj):
+        return obj.factor_file_url(self.request)
+
     def create(self, validated_data):
         product_items = validated_data.pop("factor_items", [])
         with transaction.atomic():
@@ -183,10 +184,6 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
                 last_modified_by=self.user,
                 **validated_data,
             )
-            for product in product_items:
-                FactorItemsModel.objects.create(
-                    factor=factor, last_modified_by=self.user, **product
-                )
             if self.user.type in [
                 self.user.UserTypeOptions.Superuser,
                 self.user.UserTypeOptions.Staff,
@@ -202,7 +199,12 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
                         FactorModel.PermissionForAcceptOptions.Superuser
                     )
             factor.save()
+            for product in product_items:
+                FactorItemsModel.objects.create(
+                    factor=factor, last_modified_by=self.user, **product
+                )
             factor.calculate_payment_amount()
+            factor.fill_factor_file()
         return factor
 
     def update(self, instance, validated_data):
@@ -233,6 +235,7 @@ class ListAddUpdateFactorSerializer(CustomModelSerializer):
         instance.last_modified_by = self.user
         instance.save()
         instance.calculate_payment_amount()
+        instance.fill_factor_file()
         return instance
 
 
